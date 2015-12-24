@@ -12,6 +12,7 @@ use JSON::PP ();
 use HTTP::Status ();
 use Plack::MIME;
 use Scalar::Util ();
+use Encode ();
 
 my $JSON = JSON::PP->new->utf8(1)->pretty(1)->canonical(1);
 
@@ -64,6 +65,7 @@ sub render_static {
         $res->body($static);
         return $res;
     } else {
+        warn "=> Missing '$name' static file\n";
         $self->res_common(404);
     }
 }
@@ -173,7 +175,10 @@ $route->get("/redirect/:n" => sub {
 });
 $route->get("/redirect-to" => sub {
     my ($self, $req, $capture) = @_;
-    $self->res_common(404); # TODO
+    my $url = $req->query_parameters->{url} || "";
+    my $res = $self->res(302);
+    $res->header('Location' => Encode::encode_utf8($url));
+    $res;
 });
 $route->get("/relative-redirect/:n" => sub {
     my ($self, $req, $capture) = @_;
@@ -185,7 +190,7 @@ $route->get("/absolute-redirect/:n" => sub {
 });
 $route->get("/cookies" => sub {
     my ($self, $req, $capture) = @_;
-    $self->res_common(404); # TODO
+    $self->render_json({cookies => $req->cookies});
 });
 $route->get("/cookies/set" => sub {
     my ($self, $req, $capture) = @_;
@@ -225,15 +230,15 @@ $route->get("/range/:n" => sub {
 });
 $route->get("/html" => sub {
     my ($self, $req, $capture) = @_;
-    $self->res_common(404); # TODO
+    $self->render_static("moby.html");
 });
 $route->get("/robots.txt" => sub {
     my ($self, $req, $capture) = @_;
-    $self->res_common(404); # TODO
+    $self->render_static("robots.txt");
 });
 $route->get("/deny" => sub {
     my ($self, $req, $capture) = @_;
-    $self->res_common(404); # TODO
+    $self->render_static("angry_ascii.txt");
 });
 $route->get("/cache" => sub {
     my ($self, $req, $capture) = @_;

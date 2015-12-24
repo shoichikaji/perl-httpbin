@@ -242,6 +242,18 @@ Box drawing alignment tests:                                          █
 
 </pre>
 
+@@ angry_ascii.txt
+          .-''''''-.
+        .' _      _ '.
+       /   O      O   \\
+      :                :
+      |                |
+      :       __       :
+       \  .-"`  `"-.  /
+        '.          .'
+          '-......-'
+     YOU SHOULDN'T BE HERE
+
 @@ forms-post.html
 <!DOCTYPE html>
 <html>
@@ -1473,6 +1485,10 @@ dCBlbmQ9J3InPz4KCQkKCQkKCQkKCQk=
       </div>
   </body>
 </html>
+
+@@ robots.txt
+User-agent: *
+Disallow: /deny
 
 @@ sample.xml
 <?xml version='1.0' encoding='us-ascii'?>
