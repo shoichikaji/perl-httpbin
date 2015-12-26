@@ -6,6 +6,7 @@ use Encode ();
 use MIME::Base64 ();
 
 my $STATIC = Data::Section::Simple->new->get_data_section;
+close DATA;
 
 sub load {
     (undef, my $name) = @_;

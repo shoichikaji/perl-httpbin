@@ -20,6 +20,7 @@ my %WriteMakefileArgs = (
   "MIN_PERL_VERSION" => "5.008001",
   "NAME" => "App::HTTPBin",
   "PREREQ_PM" => {
+    "Cookie::Baker" => 0,
     "Data::Section::Simple" => 0,
     "HTTP::Status" => 0,
     "JSON::PP" => 0,
@@ -38,6 +39,7 @@ my %WriteMakefileArgs = (
 
 
 my %FallbackPrereqs = (
+  "Cookie::Baker" => 0,
   "Data::Section::Simple" => 0,
   "HTTP::Status" => 0,
   "JSON::PP" => 0,

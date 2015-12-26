@@ -37,6 +37,7 @@
       },
       "runtime" : {
          "requires" : {
+            "Cookie::Baker" : "0",
             "Data::Section::Simple" : "0",
             "HTTP::Status" : "0",
             "JSON::PP" : "0",

@@ -1,5 +1,6 @@
 requires 'perl', '5.008001';
 
+requires 'Cookie::Baker';
 requires 'Data::Section::Simple';
 requires 'HTTP::Status';
 requires 'JSON::PP';
