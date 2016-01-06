@@ -1,4 +1,4 @@
-package App::HTTPBin::Static;
+package App::httpbin::Static;
 use strict;
 use warnings;
 use Data::Section::Simple ();

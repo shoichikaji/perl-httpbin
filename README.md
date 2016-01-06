@@ -2,18 +2,18 @@
 
 # NAME
 
-App::HTTPBin - perl port of http://httpbin.org/
+App::httpbin - perl port of http://httpbin.org/
 
 # SYNOPSIS
 
     use Test::TCP;
     use Test::More;
     use Plack::Loader;
-    use App::HTTPBin;
+    use App::httpbin;
 
     my $server = Test::TCP->new(code => sub {
       my $port = shift;
-      my $app = App::HTTPBin->new->to_app;
+      my $app = App::httpbin->new->to_app;
       Plack::Loader->auto(port => $port)->run($app);
     });
 
@@ -32,7 +32,7 @@ App::HTTPBin - perl port of http://httpbin.org/
 [http://httpbin.org/](http://httpbin.org/) is a HTTP request and response service.
 It is very useful when you write HTTP clients and test them.
 
-App::HTTPBin is a perl port of it.
+App::httpbin is a perl port of it.
 
 # COPYRIGHT AND LICENSE
 

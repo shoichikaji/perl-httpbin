@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 use Test::More;
-use App::HTTPBin;
+use App::httpbin;
 
 pass "ok";
 

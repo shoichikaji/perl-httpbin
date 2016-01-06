@@ -1,10 +1,10 @@
-package App::HTTPBin;
+package App::httpbin;
 use strict;
 use warnings;
 
 our $VERSION = '0.01';
 
-use App::HTTPBin::Static;
+use App::httpbin::Static;
 use Cookie::Baker ();
 use Encode ();
 use File::Temp ();
@@ -32,7 +32,7 @@ sub router { shift->{router} }
 
 {
     package
-        App::HTTPBin::Controller;
+        App::httpbin::Controller;
     sub new {
         my ($class, $req) = @_;
         bless { req => $req }, $class;
@@ -87,7 +87,7 @@ sub router { shift->{router} }
 
     sub render_static {
         my ($self, $name) = @_;
-        if (my $static = App::HTTPBin::Static->load($name)) {
+        if (my $static = App::httpbin::Static->load($name)) {
             my $type = Plack::MIME->mime_type($name) || "application/octet-stream";
             $type .= "; charset=utf-8" if $type =~ /^text/;
             my $res = $self->res(200);
@@ -104,7 +104,7 @@ sub router { shift->{router} }
 
 {
     package
-        App::HTTPBin::Route;
+        App::httpbin::Route;
     my @method = qw(get patch post put delete);
     sub new {
         my $class = shift;
@@ -127,7 +127,7 @@ sub router { shift->{router} }
 }
 {
     package
-        App::HTTPBin::Request;
+        App::httpbin::Request;
     use parent 'Plack::Request';
     sub _fix_case {
         my $str = shift;
@@ -158,7 +158,7 @@ sub router { shift->{router} }
     }
 }
 
-my $route = App::HTTPBin::Route->new;
+my $route = App::httpbin::Route->new;
 
 $route->get("/" => sub {
     my ($self, $capture) = @_;
@@ -464,12 +464,12 @@ sub to_app {
         my ($dest, $captured, $not_allowed)
             = $self->router->match($e->{REQUEST_METHOD}, $e->{PATH_INFO});
         if ($not_allowed) {
-            return App::HTTPBin::Controller->res_common(405)->finalize;
+            return App::httpbin::Controller->res_common(405)->finalize;
         } elsif (!$dest) {
-            return App::HTTPBin::Controller->res_common(404)->finalize;
+            return App::httpbin::Controller->res_common(404)->finalize;
         }
 
-        my $c = App::HTTPBin::Controller->new(App::HTTPBin::Request->new($e));
+        my $c = App::httpbin::Controller->new(App::httpbin::Request->new($e));
         my $res = eval { $dest->($c, $captured) };
         if ($@) {
             warn $@;
@@ -494,18 +494,18 @@ __END__
 
 =head1 NAME
 
-App::HTTPBin - perl port of http://httpbin.org/
+App::httpbin - perl port of http://httpbin.org/
 
 =head1 SYNOPSIS
 
   use Test::TCP;
   use Test::More;
   use Plack::Loader;
-  use App::HTTPBin;
+  use App::httpbin;
 
   my $server = Test::TCP->new(code => sub {
     my $port = shift;
-    my $app = App::HTTPBin->new->to_app;
+    my $app = App::httpbin->new->to_app;
     Plack::Loader->auto(port => $port)->run($app);
   });
 
@@ -524,7 +524,7 @@ App::HTTPBin - perl port of http://httpbin.org/
 L<http://httpbin.org/> is a HTTP request and response service.
 It is very useful when you write HTTP clients and test them.
 
-App::HTTPBin is a perl port of it.
+App::httpbin is a perl port of it.
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -12,13 +12,13 @@ my %WriteMakefileArgs = (
   "CONFIGURE_REQUIRES" => {
     "ExtUtils::MakeMaker" => 0
   },
-  "DISTNAME" => "App-HTTPBin",
+  "DISTNAME" => "App-httpbin",
   "EXE_FILES" => [
     "script/httpbin.pl"
   ],
   "LICENSE" => "perl",
   "MIN_PERL_VERSION" => "5.008001",
-  "NAME" => "App::HTTPBin",
+  "NAME" => "App::httpbin",
   "PREREQ_PM" => {
     "Cookie::Baker" => 0,
     "Data::Section::Simple" => 0,

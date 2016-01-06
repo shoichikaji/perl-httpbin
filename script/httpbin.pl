@@ -1,12 +1,12 @@
 #!perl
 use strict;
 use warnings;
-use App::HTTPBin;
+use App::httpbin;
 use Plack::Runner;
 
 my $runner = Plack::Runner->new;
 $runner->parse_options(@ARGV);
-$runner->run(App::HTTPBin->new->to_app);
+$runner->run(App::httpbin->new->to_app);
 
 __END__
 
