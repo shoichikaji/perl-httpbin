@@ -6,7 +6,6 @@ use Encode ();
 use MIME::Base64 ();
 
 my $STATIC = Data::Section::Simple->new->get_data_section;
-close DATA;
 
 sub load {
     (undef, my $name) = @_;
@@ -262,7 +261,7 @@ Box drawing alignment tests:                                          █
   </head>
   <body>
   <!-- Example form from HTML5 spec http://www.w3.org/TR/html5/forms.html#writing-a-form's-user-interface -->
-  <form method="post" action="{{ url_for('view_post') }}">
+  <form method="post" action="../post">
    <p><label>Customer name: <input name="custname"></label></p>
    <p><label>Telephone: <input type=tel name="custtel"></label></p>
    <p><label>E-mail address: <input type=email name="custemail"></label></p>
@@ -1458,15 +1457,66 @@ dCBlbmQ9J3InPz4KCQkKCQkKCQkKCQk=
 </head>
 
 <body id='manpage'>
-<a href="http://github.com/Runscope/httpbin"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 
+<div class='mp'>
+<h1>httpbin(1): HTTP Request &amp; Response Service</h1>
+<p>This is a fork of <a href="http://httpbin.org">http://httpbin.org</a></p>
 
+<h2 id="ENDPOINTS">ENDPOINTS</h2>
 
-{% include 'httpbin.1.html' %}
+<ul>
+<li><a href="" data-bare-link="true"><code>/</code></a> This page.</li>
+<li><a href="ip" data-bare-link="true"><code>/ip</code></a> Returns Origin IP.</li>
+<li><a href="user-agent" data-bare-link="true"><code>/user-agent</code></a> Returns user-agent.</li>
+<li><a href="headers" data-bare-link="true"><code>/headers</code></a> Returns header dict.</li>
+<li><a href="get" data-bare-link="true"><code>/get</code></a> Returns GET data.</li>
+<li><code>/post</code> Returns POST data.</li>
+<li><code>/patch</code> Returns PATCH data.</li>
+<li><code>/put</code> Returns PUT data.</li>
+<li><code>/delete</code> Returns DELETE data</li>
+<li><a href="encoding/utf8"><code>/encoding/utf8</code></a> Returns page containing UTF-8 data.</li>
+<li><a href="gzip" data-bare-link="true"><code>/gzip</code></a> Returns gzip-encoded data.</li>
+<li><a href="deflate" data-bare-link="true"><code>/deflate</code></a> Returns deflate-encoded data.</li>
+<li><a href="status/200"><code>/status/:code</code></a> Returns given HTTP Status code.</li>
+<li><a href="response-headers?key=val"><code>/response-headers?key=val</code></a> Returns given response headers.</li>
+<li><a href="redirect/5"><code>/redirect/:n</code></a> 302 Redirects <em>n</em> times.</li>
+<li><a href="redirect-to?url="><code>/redirect-to?url=foo</code></a> 302 Redirects to the <em>foo</em> URL.</li>
+<li><a href="relative-redirect/5"><code>/relative-redirect/:n</code></a> 302 Relative redirects <em>n</em> times.</li>
+<li><a href="absolute-redirect/5"><code>/absolute-redirect/:n</code></a> 302 Absolute redirects <em>n</em> times.</li>
+<li><a href="cookies" data-bare-link="true"><code>/cookies</code></a> Returns cookie data.</li>
+<li><a href="cookies/set?name=value"><code>/cookies/set?name=value</code></a> Sets one or more simple cookies.</li>
+<li><a href="cookies/delete?name"><code>/cookies/delete?name</code></a> Deletes one or more simple cookies.</li>
+<li><a href="basic-auth/user/passwd"><code>/basic-auth/:user/:passwd</code></a> Challenges HTTPBasic Auth.</li>
+<li><a href="hidden-basic-auth/user/passwd"><code>/hidden-basic-auth/:user/:passwd</code></a> 404'd BasicAuth.</li>
+<li><a href="digest-auth/auth/user/passwd"><code>/digest-auth/:qop/:user/:passwd</code></a> Challenges HTTP Digest Auth.</li>
+<li><a href="stream/5"><code>/stream/:n</code></a> Streams <em>min(n, 100)</em> lines.</li>
+<li><a href="delay/5"><code>/delay/:n</code></a> Delays responding for <em>min(n, 10)</em> seconds.</li>
+<li><a href="drip?numbytes=100"><code>/drip?numbytes=n&amp;duration=s&amp;delay=s&amp;code=code</code></a> Drips data over a duration after an optional initial delay, then (optionally) returns with the given status code.</li>
+<li><a href="range/1024?duration=1"><code>/range/1024?duration=s&amp;chunk_size=code</code></a> Streams <em>n</em> bytes, and allows specifying a <em>Range</em> header to select a subset of the data. Accepts a <em>chunk_size</em> and request <em>duration</em> parameter.</li>
+<li><a href="html" data-bare-link="true"><code>/html</code></a> Renders an HTML Page.</li>
+<li><a href="robots.txt" data-bare-link="true"><code>/robots.txt</code></a> Returns some robots.txt rules.</li>
+<li><a href="deny" data-bare-link="true"><code>/deny</code></a> Denied by robots.txt file.</li>
+<li><a href="cache" data-bare-link="true"><code>/cache</code></a> Returns 200 unless an If-Modified-Since or If-None-Match header is provided, when it returns a 304.</li>
+<li><a href="cache/5"><code>/cache/:n</code></a> Sets a Cache-Control header for <em>n</em> seconds.</li>
+<li><a href="bytes/1024"><code>/bytes/:n</code></a> Generates <em>n</em> random bytes of binary data, accepts optional <em>seed</em> integer parameter.</li>
+<li><a href="stream-bytes/1024"><code>/stream-bytes/:n</code></a> Streams <em>n</em> random bytes of binary data, accepts optional <em>seed</em> and <em>chunk_size</em> integer parameters.</li>
+<li><a href="links/5"><code>/links/:n</code></a> Returns page containing <em>n</em> HTML links.</li>
+<li><a href="image"><code>/image</code></a> Returns page containing an image based on sent Accept header.</li>
+<li><a href="image/png"><code>/image/png</code></a> Returns page containing a PNG image.</li>
+<li><a href="image/jpeg"><code>/image/jpeg</code></a> Returns page containing a JPEG image.</li>
+<li><a href="image/webp"><code>/image/webp</code></a> Returns page containing a WEBP image.</li>
+<li><a href="image/svg"><code>/image/svg</code></a> Returns page containing a SVG image.</li>
+<li><a href="forms/post" data-bare-link="true"><code>/forms/post</code></a> HTML form that submits to <em>/post</em></li>
+<li><a href="xml" data-bare-link="true"><code>/xml</code></a> Returns some XML</li>
+</ul>
 
-{% if tracking_enabled %}
-    {% include 'trackingscripts.html' %}
-{% endif %}
+<h2 id="DESCRIPTION">DESCRIPTION</h2>
+
+<p>Testing an HTTP Library can become difficult sometimes. <a href="http://requestb.in">RequestBin</a> is fantastic for testing POST requests, but doesn't let you control the response. This exists to cover all kinds of HTTP scenarios. Additional endpoints are being considered.</p>
+
+<p>All endpoint responses are JSON-encoded.</p>
+
+</div>
 
 </body>
 </html>
